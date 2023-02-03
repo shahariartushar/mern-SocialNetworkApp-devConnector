@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://root:root@mymedia.icvcidf.mongodb.net/MERN_SocialNetworkApp_devConnector?retryWrites=true&w=majority",
+  "jwtSecret": "mySecretToken"
+}
