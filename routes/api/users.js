@@ -1,6 +1,6 @@
 import express from 'express';
 import { registerUserController } from '../../controllers/users.controller.js';
-import { checkUserReg } from '../../middleware/checkUserReg.js';
+import { checkUserReg } from '../../middleware/checkValidation.js';
 
 const router = express.Router();
 

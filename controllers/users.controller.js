@@ -2,8 +2,8 @@ import { validationResult } from 'express-validator';
 import gravatar from 'gravatar';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { User } from '../models/User.js';
 import config from 'config';
+import { User } from '../models/User.js';
 
 export const loginUserController = async (req, res) => {
   const errors = validationResult(req);

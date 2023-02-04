@@ -1,15 +1,15 @@
 import express from 'express';
 import { loginUserController } from '../../controllers/users.controller.js';
 import { authentication } from '../../middleware/auth.js';
-import { authUserController } from '../../controllers/auth.controller.js';
-import { checkUserLogin } from '../../middleware/checkUserReg.js';
+import { getAuthUserController } from '../../controllers/auth.controller.js';
+import { checkUserLogin } from '../../middleware/checkValidation.js';
 
 const router = express.Router();
 
 // @route   GET api/auth
-// @desc    Test route
+// @desc    Get Auth User
 // @access  Public
-router.get('/', authentication, authUserController);
+router.get('/', authentication, getAuthUserController);
 
 // @route   POST api/auth
 // @desc    Authenticate user & get token

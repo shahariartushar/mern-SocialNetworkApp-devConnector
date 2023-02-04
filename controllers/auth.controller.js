@@ -1,6 +1,6 @@
 import { User } from '../models/User.js';
 
-export const authUserController = async (req, res) => {
+export const getAuthUserController = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
     res.json(user);

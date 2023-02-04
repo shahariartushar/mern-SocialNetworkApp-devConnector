@@ -13,3 +13,8 @@ export const checkUserLogin = [
   check('email', 'Please include a valid email').isEmail(),
   check('password', 'Password is required').exists(),
 ];
+
+export const checkUserProfile = [
+  check('status', 'Status is required').not().isEmpty(),
+  check('skills', 'Skills is required').not().isEmpty(),
+];
