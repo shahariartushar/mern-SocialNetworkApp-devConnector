@@ -3,6 +3,9 @@ import { authentication } from '../../middleware/auth.js';
 import {
   getProfileController,
   createOrUpdateProfileController,
+  getAllProfileController,
+  getProfileByUserIdController,
+  deleteProfileController,
 } from '../../controllers/profile.controller.js';
 import { checkUserProfile } from '../../middleware/checkValidation.js';
 
@@ -21,5 +24,20 @@ router.post(
   [authentication, checkUserProfile],
   createOrUpdateProfileController,
 );
+
+// @route   GET api/profile
+// @desc    Get all profiles
+// @access  Public
+router.get('/', getAllProfileController);
+
+// @route   GET api/profile/user/:user_id
+// @desc    Get profile by user id
+// @access  Public
+router.get('/user/:user_id', getProfileByUserIdController);
+
+// @route   DELETE api/profile
+// @desc    Delete profile, user & posts
+// @access  Private
+router.delete('/', authentication, deleteProfileController);
 
 export default router;

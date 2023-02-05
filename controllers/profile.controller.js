@@ -1,5 +1,6 @@
 import { validationResult } from 'express-validator';
 import { Profile } from '../models/Profile.js';
+import { User } from '../models/User.js';
 
 export const getProfileController = async (req, res) => {
   try {
@@ -77,7 +78,6 @@ export const createOrUpdateProfileController = async (req, res) => {
 
       return res.json(profile);
     }
-    console.log('Hi');
 
     // Create
     profile = new Profile(profileFields);
@@ -88,5 +88,55 @@ export const createOrUpdateProfileController = async (req, res) => {
   } catch (err) {
     console.error(err.message);
     return res.status(500).send('Server Error');
+  }
+};
+
+export const getAllProfileController = async (req, res) => {
+  try {
+    const profiles = await Profile.find().populate('user', ['name', 'avatar']);
+
+    res.json(profiles);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+};
+
+export const getProfileByUserIdController = async (req, res) => {
+  try {
+    const profile = await Profile.findOne({
+      user: req.params.user_id,
+    }).populate('user', ['name', 'avatar']);
+
+    if (!profile) {
+      return res.status(400).json({ msg: 'Profile not found' });
+    }
+
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+
+    if (err.kind == 'ObjectId') {
+      return res.status(400).json({ msg: 'Profile not found' });
+    }
+    res.status(500).send('Server Error');
+  }
+};
+
+export const deleteProfileController = async (req, res) => {
+  try {
+    // @todo - remove users posts
+
+    // Remove profile
+    await Profile.findOneAndRemove({ user: req.user.id });
+
+    // Remove user
+    await User.findOneAndRemove({ _id: req.user.id });
+
+    res.json({ msg: 'User Deleted' });
+  } catch (err) {
+    console.error(err.message);
+
+    res.status(500).send('Server Error');
   }
 };
