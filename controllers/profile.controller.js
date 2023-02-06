@@ -2,7 +2,7 @@ import { validationResult } from 'express-validator';
 import { Profile } from '../models/Profile.js';
 import { User } from '../models/User.js';
 
-export const getProfileController = async (req, res) => {
+export const getAuthProfileController = async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id }).populate(
       'user',
@@ -134,6 +134,44 @@ export const deleteProfileController = async (req, res) => {
     await User.findOneAndRemove({ _id: req.user.id });
 
     res.json({ msg: 'User Deleted' });
+  } catch (err) {
+    console.error(err.message);
+
+    res.status(500).send('Server Error');
+  }
+};
+
+export const addProfileExperienceController = async (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { title, company, location, from, to, current, description } = req.body;
+
+  const newExp = {
+    title,
+    company,
+    location,
+    from,
+    to,
+    current,
+    description,
+  };
+
+  try {
+    const profile = await Profile.findOne({ user: req.user.id });
+
+    if (!profile) {
+      return res.status(400).json({ msg: 'There is no profile for this user' });
+    }
+
+    profile.experience.unshift(newExp);
+
+    await profile.save();
+
+    res.json(profile);
   } catch (err) {
     console.error(err.message);
 

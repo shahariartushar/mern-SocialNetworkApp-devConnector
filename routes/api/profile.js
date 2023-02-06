@@ -1,20 +1,24 @@
 import express from 'express';
 import { authentication } from '../../middleware/auth.js';
 import {
-  getProfileController,
+  getAuthProfileController,
   createOrUpdateProfileController,
   getAllProfileController,
   getProfileByUserIdController,
   deleteProfileController,
+  addProfileExperienceController,
 } from '../../controllers/profile.controller.js';
-import { checkUserProfile } from '../../middleware/checkValidation.js';
+import {
+  checkUserProfile,
+  checkUserProfileExp,
+} from '../../middleware/checkValidation.js';
 
 const router = express.Router();
 
 // @route   GET api/profile/me
 // @desc    Get current user profile
 // @access  Private
-router.get('/me', authentication, getProfileController);
+router.get('/me', authentication, getAuthProfileController);
 
 // @route   POST api/profile
 // @desc    Create or Update user profile
@@ -39,5 +43,14 @@ router.get('/user/:user_id', getProfileByUserIdController);
 // @desc    Delete profile, user & posts
 // @access  Private
 router.delete('/', authentication, deleteProfileController);
+
+// @route   PUT api/profile/experience
+// @desc    Add profile experience
+// @access  Private
+router.put(
+  '/experience',
+  [authentication, checkUserProfileExp],
+  addProfileExperienceController,
+);
 
 export default router;

@@ -18,3 +18,9 @@ export const checkUserProfile = [
   check('status', 'Status is required').not().isEmpty(),
   check('skills', 'Skills is required').not().isEmpty(),
 ];
+
+export const checkUserProfileExp = [
+  check('title', 'Title is required').not().isEmpty(),
+  check('company', 'Company is required').not().isEmpty(),
+  check('from', 'From date is required').not().isEmpty(),
+];
