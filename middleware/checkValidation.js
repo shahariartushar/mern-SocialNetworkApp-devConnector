@@ -24,3 +24,9 @@ export const checkUserProfileExp = [
   check('company', 'Company is required').not().isEmpty(),
   check('from', 'From date is required').not().isEmpty(),
 ];
+
+export const checkUserProfileEducation = [
+  check('school', 'School name is required').not().isEmpty(),
+  check('degree', 'Degree name is required').not().isEmpty(),
+  check('from', 'From date is required').not().isEmpty(),
+];

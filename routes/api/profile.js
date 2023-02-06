@@ -7,10 +7,14 @@ import {
   getProfileByUserIdController,
   deleteProfileController,
   addProfileExperienceController,
+  deleteProfileExperienceController,
+  addProfileEducationController,
+  deleteProfileEducationController,
 } from '../../controllers/profile.controller.js';
 import {
   checkUserProfile,
   checkUserProfileExp,
+  checkUserProfileEducation,
 } from '../../middleware/checkValidation.js';
 
 const router = express.Router();
@@ -51,6 +55,33 @@ router.put(
   '/experience',
   [authentication, checkUserProfileExp],
   addProfileExperienceController,
+);
+
+// @route   PUT api/profile/experience/:experience_id
+// @desc    Delete profile experience
+// @access  Private
+router.delete(
+  '/experience/:experience_id',
+  authentication,
+  deleteProfileExperienceController,
+);
+
+// @route   PUT api/profile/education
+// @desc    Add profile education
+// @access  Private
+router.put(
+  '/education',
+  [authentication, checkUserProfileEducation],
+  addProfileEducationController,
+);
+
+// @route   PUT api/profile/education/:education_id
+// @desc    Delete profile education
+// @access  Private
+router.delete(
+  '/education/:education_id',
+  authentication,
+  deleteProfileEducationController,
 );
 
 export default router;
