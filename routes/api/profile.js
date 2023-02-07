@@ -10,6 +10,7 @@ import {
   deleteProfileExperienceController,
   addProfileEducationController,
   deleteProfileEducationController,
+  getGithubReposController,
 } from '../../controllers/profile.controller.js';
 import {
   checkUserProfile,
@@ -83,5 +84,10 @@ router.delete(
   authentication,
   deleteProfileEducationController,
 );
+
+// @route   GET api/profile/github/:username
+// @desc    Get user repos from github
+// @access  Public
+router.get('/github/:username', getGithubReposController);
 
 export default router;
