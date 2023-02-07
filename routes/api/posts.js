@@ -8,6 +8,8 @@ import {
   deletePostController,
   addPostLikeController,
   addPostUnlikeController,
+  addPostCommentController,
+  deletePostCommentController,
 } from '../../controllers/posts.controller.js';
 
 const router = express.Router();
@@ -41,5 +43,23 @@ router.put('/like/:post_id', authentication, addPostLikeController);
 // @desc    Unlike a post
 // @access  Private
 router.put('/unlike/:post_id', authentication, addPostUnlikeController);
+
+// @route   POST api/posts/comment/:post_id
+// @desc    Comment in a post
+// @access  Private
+router.post(
+  '/comment/:post_id',
+  [authentication, checkPost],
+  addPostCommentController,
+);
+
+// @route   Delete api/posts/comment/:post_id/:comment_id
+// @desc    Remove comment from a post
+// @access  Private
+router.delete(
+  '/comment/:post_id/:comment_id',
+  authentication,
+  deletePostCommentController,
+);
 
 export default router;
