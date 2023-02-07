@@ -93,7 +93,7 @@ export const createOrUpdateProfileController = async (req, res) => {
   }
 };
 
-export const getAllProfileController = async (req, res) => {
+export const getAllProfilesController = async (req, res) => {
   try {
     const profiles = await Profile.find().populate('user', ['name', 'avatar']);
 

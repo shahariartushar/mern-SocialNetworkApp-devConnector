@@ -3,7 +3,7 @@ import { authentication } from '../../middleware/auth.js';
 import {
   getAuthProfileController,
   createOrUpdateProfileController,
-  getAllProfileController,
+  getAllProfilesController,
   getProfileByUserIdController,
   deleteProfileController,
   addProfileExperienceController,
@@ -37,7 +37,7 @@ router.post(
 // @route   GET api/profile
 // @desc    Get all profiles
 // @access  Public
-router.get('/', getAllProfileController);
+router.get('/', getAllProfilesController);
 
 // @route   GET api/profile/user/:user_id
 // @desc    Get profile by user id

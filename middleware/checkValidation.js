@@ -30,3 +30,5 @@ export const checkUserProfileEducation = [
   check('degree', 'Degree name is required').not().isEmpty(),
   check('from', 'From date is required').not().isEmpty(),
 ];
+
+export const checkPost = [check('text', 'Text is required').not().isEmpty()];
