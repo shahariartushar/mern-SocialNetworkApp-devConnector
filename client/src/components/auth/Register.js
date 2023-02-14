@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setAlert } from '../../actions/alert.js';
+import { register } from '../../actions/auth.js';
 //import axios from 'axios';
 
-const Register = ({ setAlert }) => {
+const Register = ({ setAlert, register }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -22,7 +23,9 @@ const Register = ({ setAlert }) => {
     e.preventDefault();
 
     if (password === password2) {
-      // ---> using axios
+      register({ name, email, password });
+
+      // ---> using axios (this part is done in actions/auth.js file)
       //   const newUser = {
       //     name,
       //     email,
@@ -114,6 +117,7 @@ const Register = ({ setAlert }) => {
 
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
 };
 
-export default connect(null, { setAlert })(Register);
+export default connect(null, { setAlert, register })(Register);
