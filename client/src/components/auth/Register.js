@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setAlert } from '../../actions/alert.js';
 import { register } from '../../actions/auth.js';
-//import axios from 'axios';
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -24,25 +23,6 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 
     if (password === password2) {
       register({ name, email, password });
-
-      // ---> using axios (this part is done in actions/auth.js file)
-      //   const newUser = {
-      //     name,
-      //     email,
-      //     password,
-      //   };
-      //   try {
-      //     const config = {
-      //       headers: {
-      //         'Content-Type': 'application/json',
-      //       },
-      //     };
-      //     const body = JSON.stringify(newUser);
-      //     const res = await axios.post('api/users', body, config);
-      //     console.log(res.data);
-      //   } catch (err) {
-      //     console.error(err.response.data);
-      //   }
     } else {
       setAlert('Passwords do not match', 'danger');
     }
