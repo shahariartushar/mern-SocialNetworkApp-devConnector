@@ -18,8 +18,12 @@ To run the application locally, please follow these instructions:
 2. Install the dependencies: `npm install`
 3. Set up your environment variables by creating a `.env` file in the root directory and adding the following variables:
 
-MONGO_URI=your_mongodb_uri
-JWT_SECRET=your_secret_key
+```
+mongoURI=your_mongodb_uri
+jwtSecret=your_secret_key
+githubClientID=your_githubclient_id
+githubClientSecret=your_githubclient_secret_key
+```
 
 4. Start the server: `npm run server`
 5. Start the client: `npm run client`
