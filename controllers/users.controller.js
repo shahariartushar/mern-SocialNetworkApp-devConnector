@@ -2,11 +2,14 @@ import { validationResult } from 'express-validator';
 import gravatar from 'gravatar';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import config from 'config';
 import { User } from '../models/User.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export const loginUserController = async (req, res) => {
   const errors = validationResult(req);
+  const jwtSecret = process.env.jwtSecret;
 
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -36,15 +39,10 @@ export const loginUserController = async (req, res) => {
       },
     };
 
-    jwt.sign(
-      payload,
-      config.get('jwtSecret'),
-      { expiresIn: 360000 },
-      (err, token) => {
-        if (err) throw err;
-        res.json({ token });
-      },
-    );
+    jwt.sign(payload, jwtSecret, { expiresIn: 360000 }, (err, token) => {
+      if (err) throw err;
+      res.json({ token });
+    });
   } catch (err) {
     console.error(err.message);
     return res.status(500).send('Server Error');
@@ -96,15 +94,10 @@ export const registerUserController = async (req, res) => {
       },
     };
 
-    jwt.sign(
-      payload,
-      config.get('jwtSecret'),
-      { expiresIn: 360000 },
-      (err, token) => {
-        if (err) throw err;
-        res.json({ token });
-      },
-    );
+    jwt.sign(payload, jwtSecret, { expiresIn: 360000 }, (err, token) => {
+      if (err) throw err;
+      res.json({ token });
+    });
   } catch (err) {
     console.error(err.message);
     return res.status(500).send('Server Error');

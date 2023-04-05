@@ -1,6 +1,1 @@
-{
-  "mongoURI": "mongodb+srv://root:root@mymedia.icvcidf.mongodb.net/MERN_SocialNetworkApp_devConnector?retryWrites=true&w=majority",
-  "jwtSecret": "mySecretToken",
-  "githubClientId": "919661d29b6eac988ce5",
-  "githubClientSecret": "01e0628365135febd5b1209a2b65e5b8ca56b9dc"
-}
+

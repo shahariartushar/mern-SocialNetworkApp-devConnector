@@ -1,10 +1,15 @@
 import { validationResult } from 'express-validator';
 import request from 'request';
-import config from 'config';
 import { Profile } from '../models/Profile.js';
 import { User } from '../models/User.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export const getAuthProfileController = async (req, res) => {
+  const githubClientId = process.env.githubClientId;
+  const githubClientSecret = process.env.githubClientSecret;
+
   try {
     const profile = await Profile.findOne({ user: req.user.id }).populate(
       'user',
@@ -265,11 +270,7 @@ export const deleteProfileEducationController = async (req, res) => {
 export const getGithubReposController = async (req, res) => {
   try {
     const options = {
-      uri: `https://api.github.com/users/${
-        req.params.username
-      }/repos?per_page=5&sort=created:asc&client_id=${config.get(
-        'githubClientId',
-      )}&client_secret=${config.get('githubClientSecret')}`,
+      uri: `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc&client_id=${githubClientId}&client_secret=${githubClientSecret}`,
       method: 'GET',
       headers: { 'user-agent': 'node.js' },
     };

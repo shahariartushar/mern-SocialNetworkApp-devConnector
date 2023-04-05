@@ -1,9 +1,13 @@
 import jwt from 'jsonwebtoken';
-import config from 'config';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export const authentication = (req, res, next) => {
   // Get the token from header
   const token = req.header('x-auth-token');
+
+  const secret = process.env.jwtSecret;
 
   // Check if not token
   if (!token) {
@@ -12,7 +16,7 @@ export const authentication = (req, res, next) => {
 
   // Verify token
   try {
-    const decoded = jwt.verify(token, config.get('jwtSecret'));
+    const decoded = jwt.verify(token, secret);
 
     req.user = decoded.user;
     next();
